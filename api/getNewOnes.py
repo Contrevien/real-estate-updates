@@ -22,7 +22,7 @@ options.add_argument("--disable-gpu")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--no-sandbox")
 options.add_argument("log-level=3")
-driver = webdriver.Chrome(options=options, executable_path=ch)
+driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 10)
 
 errors = {
