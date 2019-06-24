@@ -21,5 +21,5 @@ RUN pip3 install selenium flask flask-restful
 
 WORKDIR /app
 COPY . /app
-EXPOSE 80
+EXPOSE 5000
 CMD ["python3","app.py"]
