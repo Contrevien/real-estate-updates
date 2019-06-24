@@ -1,0 +1,80 @@
+{
+  "apartment_rent": {
+    "Baden-Württemberg": {
+      "Karlsruhe": {
+        "immobilienscout24-kreis": {
+          "https://www.immobilienscout24.de/expose/111990882": {
+            "name": "NEUWG-Zimmer in 4er-WG, neuwertiges Haus in ruhiger Wohngegend",
+            "description": "",
+            "price": "330 €",
+            "rooms": "1 rooms",
+            "area": "19 m²",
+            "specific_loc": "Janzerstr. 14, Bretten, Karlsruhe (Kreis)"
+          }
+        },
+        "immobilienscout24": {
+          "https://www.immobilienscout24.de/expose/111991042": {
+            "name": "NEUPerfekt für Sie - Aufzug - Balkon Fassadenvollwärmeschutz",
+            "description": "",
+            "price": "602,99 €",
+            "rooms": "3 rooms",
+            "area": "66,85 m²",
+            "specific_loc": "Durlacher Allee 27a, Oststadt, Karlsruhe"
+          },
+          "https://www.immobilienscout24.de/expose/111990911": {
+            "name": "NEUModernisierung in 2017! Perfekt für Singles - 37 qm, Balkon und Fassadenvollwärmeschutz",
+            "description": "",
+            "price": "449,64 €",
+            "rooms": "1 rooms",
+            "area": "37,47 m²",
+            "specific_loc": "Ludwig-Marum-Straße 46, Mühlburg, Karlsruhe"
+          },
+          "https://www.immobilienscout24.de/expose/111967298": {
+            "name": "NEUAnsprechende 1-Zimmer-Wohnung in Karlsruhe",
+            "description": "",
+            "price": "300 €",
+            "rooms": "1 rooms",
+            "area": "28 m²",
+            "specific_loc": "Goethestr. 49, Weststadt, Karlsruhe"
+          }
+        },
+        "ebay": {
+          "https://www.ebay-kleinanzeigen.de/s-anzeige/perfekt-fuer-sie-aufzug-balkon-fassadenvollwaermeschutz/1142622344-203-9190": {
+            "name": "Perfekt für Sie - Aufzug - Balkon Fassadenvollwärmeschutz",
+            "description": "Perfekt für Sie - Aufzug - Balkon Fassadenvollwärmeschutz Lagebeschreibung: Ihr neues Zuhause...",
+            "rooms": "3 rooms",
+            "area": "66,85 m²",
+            "price": "603 €",
+            "specific_loc": "Karlsruhe"
+          },
+          "https://www.ebay-kleinanzeigen.de/s-anzeige/verfuehrerisch-bequem-2-zimmer-51-qm-eg/1142612353-203-9194": {
+            "name": "Verführerisch bequem - 2 Zimmer - 51 qm - EG",
+            "description": "Verführerisch bequem - 2 Zimmer - 51 qm - EG Lagebeschreibung: Ihr neues Zuhause liegt in der...",
+            "rooms": "2 rooms",
+            "area": "50,97 m²",
+            "price": "476 €",
+            "specific_loc": "Karlsruhe"
+          },
+          "https://www.ebay-kleinanzeigen.de/s-anzeige/modernisierung-in-2017-perfekt-fuer-singles-37-qm-balkon-und-fassadenvollwaermeschutz/1142611886-203-9187": {
+            "name": "Modernisierung in 2017! Perfekt für Singles - 37 qm, Balkon und Fassadenvollwärmeschutz",
+            "description": "Modernisierung in 2017! Perfekt für Singles - 37 qm, Balkon und...",
+            "rooms": "1 rooms",
+            "area": "37,47 m²",
+            "price": "450 €",
+            "specific_loc": "Karlsruhe"
+          },
+          "https://www.ebay-kleinanzeigen.de/s-anzeige/verfuehrerisch-bequem-eg-und-fassadenvollwaermeschutz/1142608913-203-9197": {
+            "name": "Verführerisch bequem - EG und Fassadenvollwärmeschutz",
+            "description": "Verführerisch bequem - EG und Fassadenvollwärmeschutz Lagebeschreibung: Ihr neues Zuhause befindet...",
+            "rooms": "2,5 rooms",
+            "area": "61,84 m²",
+            "price": "670 €",
+            "specific_loc": "Karlsruhe"
+          }
+        }
+      }
+    }
+  },
+  "apartment_buy": {},
+  "room_rent": {}
+}

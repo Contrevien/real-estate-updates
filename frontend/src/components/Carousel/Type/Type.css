@@ -1,0 +1,47 @@
+.Type {
+    font-family: "Montserrat";
+}
+
+.Type h4 {
+    color: #444;
+}
+
+.Type-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4%;
+    cursor: pointer;
+}
+
+.Type-row:hover .Type-fill {
+    opacity: 1;
+}
+
+.Type-radio {
+    cursor: pointer;
+    width: 15px;
+    margin-right: 20px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #999;
+    box-shadow: inset 0px 0px 2px rgba(0,0,0,0.16);
+}
+
+.Type-fill {
+    width: 10.5px;
+    height: 10.5px;
+    border-radius: 50%;
+    background-color: rgba(255,0,0,0.8);
+    opacity: 0;
+}
+
+.Type-radio:hover > .Type-fill {
+    animation: intro 0.1s ease-out forwards;
+}
+
+.Type-filled {
+    opacity: 1;
+}

@@ -1,0 +1,15 @@
+.CarouselNavigator-clickable-circle {
+    display: inline-block;
+    margin: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #999999;
+    cursor: pointer;
+    opacity: 0;
+    animation: intro 0.3s ease-out 1.2s forwards;
+}
+
+.clickable-circle-selected {
+    background: rgba(255,0,0,0.8);
+}

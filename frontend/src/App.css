@@ -1,0 +1,65 @@
+.App header {
+  min-height: 120px;
+  width: 100%;
+  background: white;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  box-sizing: border-box;
+  padding: 0 10%;
+  opacity: 0;
+  animation: intro 0.3s ease-out 1.2s forwards;
+}
+
+.App header ul {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  font-family: "Montserrat";
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.App-li {
+  cursor: pointer;
+  padding: 15px 30px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid #333;
+}
+
+.App-li:hover {
+  border: 1px solid rgba(255, 0, 0, 0.8);
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+}
+
+.App-h1 {
+  letter-spacing: 2px;
+  font-family: "Aguafina Script";
+  font-weight: bolder;
+}
+
+@keyframes intro {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+
+  .App header {
+    padding: 0 5%;
+  }
+
+  .App-li {
+    padding: 7px 12px;
+    font-size: 0.7rem;
+  }
+}

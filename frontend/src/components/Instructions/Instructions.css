@@ -1,0 +1,120 @@
+.Instructions {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5% 10%;
+    opacity: 0;
+    animation: intro 0.3s ease-out 1.3s forwards;
+}
+
+/* .Instructions-col {
+    border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-sizing: border-box;
+    
+} */
+
+.Instructions-right {
+    max-height: 30px;
+}
+
+.Instructions-col p {
+    font-family: "Montserrat";
+    font-weight: 600;
+    color: rgba(255, 0, 0, 0.8);
+    max-width: 150px;
+}
+
+.Instructions-first {
+    display: flex;
+    align-items: center;
+}
+
+.Instructions-first p {
+    margin-left: 20px;
+}
+
+.Instructions-last {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    text-align: right;
+}
+
+.Instructions-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Instructions-center p {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.Instructions-last p {
+    margin-right: 20px;
+}
+
+.Instructions-img {
+    max-width: 100px;
+}
+
+.Instructions-spl {
+    width: 230px;
+}
+
+@media only screen and (max-width: 1150px) {
+    .Instructions-img {
+        max-width: 70px;
+    }
+
+    .Instructions-spl {
+        width: 170px;
+    }
+
+    .Instructions-right {
+        max-height: 20px;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .Instructions-right{
+        display: none;
+    }
+
+    .Instructions {
+        padding: 5%;
+        font-size: 0.8rem;
+    }
+
+    .Instructions-col p {
+        max-width: 150px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .Instructions {
+        flex-direction: column;
+        font-size: 1rem;
+    }
+
+    .Instructions-col {
+        min-height: 150px;
+        margin: 2.5% 0;
+    }
+
+    .Instructions-first, .Instructions-center, .Instructions-last {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .Instructions-first p, .Instructions-last p {
+        margin: auto 0;
+    }
+}

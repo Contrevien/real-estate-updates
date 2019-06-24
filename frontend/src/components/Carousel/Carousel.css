@@ -1,0 +1,133 @@
+.Carousel {
+    width: 30%;
+    margin-left: 10%;
+    min-height: 300px;
+    box-sizing: border-box;
+    padding-bottom: 2%;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 6;
+}
+
+.CarouselNavigator-container {
+    position: absolute;
+    bottom: 4%;
+}
+
+.Carousel-cover {
+    width: 100%;
+    height: auto;
+    background: rgba(255, 0, 0, 0.8);
+    box-sizing: border-box;
+    padding: 2% 0;
+    z-index: 5;
+    opacity: 0;
+    position: relative;
+    animation: intro 0.3s ease-out 1.2s forwards;
+}
+
+.Carousel-h1 {
+    font-family: "Montserrat";
+    color: #fff;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    letter-spacing: 0;
+    text-align: right;
+    font-size: 60px;
+    text-shadow: 2px 2px 7px rgba(0,0,0,0.25);
+}
+
+.Carousel-bg {
+    position: absolute;
+    right:0;
+    bottom: -3px;
+    z-index: 5;
+}
+
+.Carousel-controls-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.Carousel-controls-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.Carousel-controls-left img {
+    max-height: 15px;
+    transform: rotate(180deg);
+    cursor: pointer;
+}
+
+.Carousel-controls-right img {
+    max-height: 15px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1150px) {
+    .Carousel {
+        width: 40%;
+        margin-left: 5%;
+    }
+
+    .Carousel-h1 {
+        right: 2%;
+        font-size: 50px;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .Carousel {
+        width: 55%;
+        margin: 0 auto;
+        min-height: 270px;
+    }
+
+    .Carousel-h1 {
+        display: none;
+    }
+
+    .Carousel-controls-left, .Carousel-controls-right {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .Carousel {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .Carousel {
+        width: 85%;
+    }
+
+    .Carousel-cover {
+        padding: 10% 0;
+    }
+}
