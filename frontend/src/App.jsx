@@ -4,12 +4,14 @@ import Loader from './components/Loader/Loader';
 import Carousel from './components/Carousel/Carousel';
 import Instructions from './components/Instructions/Instructions';
 import Showcase from './components/Showcase/Showcase';
+import Done from './components/Done/Done';
 
 class App extends React.Component {
   
   state = {
     loading: true,
-    showCase: false
+    showCase: false,
+    done: false
   }
 
   toggleShowcase = () => {
@@ -29,6 +31,21 @@ class App extends React.Component {
       }
     }
   }
+
+  getDone = () => {
+    this.setState({
+      loading: true,
+      done: true
+    })
+  }
+
+  toggleLoader = () => {
+    let curr = this.state.loading;
+    
+    this.setState({
+      loading: !curr
+    })
+  }
   
   render() {
     return (
@@ -41,7 +58,7 @@ class App extends React.Component {
               </ul>
           </nav>
         </header>
-        <Carousel />
+        <Carousel done={this.getDone} loader={this.toggleLoader} />
         <Instructions />
         {this.state.loading && <Loader />}
         {this.state.showCase && 
@@ -50,6 +67,7 @@ class App extends React.Component {
             <Showcase close={this.toggleShowcase} />
           </>
         }
+        {this.state.done && <Done loaded={this.toggleLoader} />}
       </div>
     );
   }

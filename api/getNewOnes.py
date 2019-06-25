@@ -382,6 +382,9 @@ try:
 						justify-content: center;
 						width: 100%;
 					}
+					.goodslist a {
+						color: #555;
+					}
 					.showbox {
 						width: 90%;
 						min-height: 100px;
@@ -428,7 +431,8 @@ try:
 			<body class="cover">
 				<h1 class="hai">neue postings</h1>
 				<div class="goodslist">
-				""" + filling + """	
+				""" + filling + """
+				<a href=".">Unsubscribe</a>
 				</div>
 			</body>
 			</html>

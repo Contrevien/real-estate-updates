@@ -128,6 +128,38 @@ class Carousel extends Component {
         else {
             this.setState({message: ""});
         }
+
+        this.props.loader()
+
+        fetch('/add', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: this.state.cards[3],
+                rooms: this.state.cards[2][1] + " rooms",
+                max_price: this.state.cards[2][0],
+                location: this.state.cards[1],
+                type: this.state.cards[0] 
+            })
+        })
+            .then(res => res.json())
+            .then(res => {
+                if(res === "777")
+                    this.setState({
+                        message: "Something went wrong, please submit again"
+                    })
+                else if(res === "666")
+                    this.setState({
+                        message: "A user with this email already exists"
+                    })
+                else{
+                    this.props.done()
+                } 
+                    
+            })
+
     }
 
     handleSlide = (type) => {

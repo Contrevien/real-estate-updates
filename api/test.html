@@ -8,16 +8,21 @@
   <style>
     body {
       text-align: center;
+      font-family: "Montserrat";
     }
     h1 {
-      font-family: "Montserrat";
       font-weight: bolder;
       margin-top: 5%;
     }
     #goodslist {
         display: flex;
-        justify-content: center;
+        align-items: center;
         width: 100%;
+        flex-direction: column;
+    }
+
+    #goodslist a {
+        color: #555;
     }
     .showbox {
         width: 90%;
@@ -25,60 +30,34 @@
         margin: 20px;
         text-align: left;
     }
-    .showbox h2 {
-        font-family: "Montserrat";
-        font-weight: 400;
-        color: #777;
+    .showbox ul {
+        list-style: none;
     }
     .showbox p {
-        font-family: "Montserrat";
-        font-weight: bolder;
-        color: #eee;
-        font-size: 20px;
-        display: inline;
-        margin-left: 30px;
+        font-weight: bold;
+        color: rgba(255, 0, 0, 0.8);
     }
-    .details {
-        width: 60%;
-        padding: 10px 0;
-        display: inline-block;
-        background: #111;
+    .showbox span {
+        font-weight: bold;
+        color: #555;
     }
-    .link {
-        font-family: "Montserrat";
-        font-weight: bolder;
-        color: #eee;
-        font-size: 20px;
-        display: inline-block;
-        margin-left: 30px;
-        width: 20%;
-        text-align: center;
-        padding: 10px 0;
-        background: rgba(255,0,0,0.8);
-        cursor: pointer;
-    }
-    .link a {
-        text-decoration: none;
-        color: #eee;
-    }
+
+    
   </style>
   <body>
-    <h1>neue postings</h1>
+    <h1>Hello, we hope to help you find your next property!</h1>
     <div id="goodslist">
         <div class="showbox">
-            <h2>Mietwohnung 2 Zimmer + EBK + Teilmöbeliert Karlsruhe Durlach</h2>
-            <div class="details">
-                <p>Karlsruhe</p>
-                <p>2 rooms</p>
-                <p>300 &euro;</p>
-                <p>60 m</p>
-            </div>
-            <a target="_blank" href=".">
-                <div class="link">
-                    View on Website
-                </div>
-            </a>
+            <p>Thank you for subscribing to our service; Here are the preferences you have chosen</p>
+            <ul>
+                <li><span>Location: </span>Karlsruhe</li>
+                <li><span>Max Price: </span>None</li>
+                <li><span>Rooms: </span>2 rooms</li>
+                <li><span>Category: </span>Apartment Buy</li>
+            </ul>
+            <p>You will receive a mail if a new property shows up for your preferences</p>
         </div>
+        <a href=".">Unsubscribe</a>
     </div>
 </body>
 </html>

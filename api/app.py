@@ -2,9 +2,108 @@ from flask import Flask, request, Response
 import os
 from flask_restful import Resource, Api
 import json
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 api = Api(app)
+
+def hello(params):
+    smtp_server = "smtp.gmail.com"
+    port = 587  # For starttls
+    sender_email = "therealestatebotgermany@gmail.com"
+    password = "dontplease"
+
+    # Create a secure SSL context
+    context = ssl.create_default_context()
+
+    try:
+        # Try to log in to server and send email
+        server = smtplib.SMTP(smtp_server,port)
+        server.ehlo() # Can be omitted
+        server.starttls(context=context) # Secure the connection
+        server.ehlo() # Can be omitted
+        server.login(sender_email, password)
+            
+        html = """
+            <html>
+            <head>
+                <link
+                href="https://fonts.googleapis.com/css?family=Montserrat:400,800&display=swap"
+                rel="stylesheet"
+                />
+            </head>
+            <style>
+                body {
+                text-align: center;
+                font-family: "Montserrat";
+                }
+                h1 {
+                font-weight: bolder;
+                margin-top: 5%;
+                }
+                #goodslist {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    flex-direction: column;
+                }
+                #goodslist a {
+                    color: #555;
+                }
+                .showbox {
+                    width: 90%;
+                    min-height: 300px;
+                    margin: 20px;
+                    text-align: left;
+                }
+                .showbox ul {
+                    list-style: none;
+                }
+                .showbox p {
+                    font-weight: bold;
+                    color: rgba(255, 0, 0, 0.8);
+                }
+                .showbox span {
+                    font-weight: bold;
+                    color: #555;
+                }
+
+                
+            </style>
+            <body>
+                <h1>Hello, we hope to help you find your next property!</h1>
+                <div id="goodslist">
+                    <div class="showbox">
+                        <p>Thank you for subscribing to our service; Here are the preferences you have chosen</p>
+                        <ul>
+                            <li><span>Location: </span>""" + params["location"] + """</li>
+                            <li><span>Max Price: </span>""" + params["max_price"] + """</li>
+                            <li><span>Rooms: </span>""" + params["rooms"] + """</li>
+                            <li><span>Category: </span>""" + params["type"] + """</li>
+                        </ul>
+                        <p>You will receive a mail if a new property shows up for your preferences</p>
+                    </div>
+                    <a href=".">Unsubscribe</a>
+                </div>
+            </body>
+            </html>
+
+        """
+
+
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "Hello"
+        message["From"] = sender_email
+        message["To"] = params["email"]
+        part1 = MIMEText(html, "html")
+        message.attach(part1)
+        server.sendmail(sender_email, params["email"], message.as_string())
+        return 1
+
+    except:
+        return -1
 
 class Locations(Resource):
     def get(self, type):
@@ -21,9 +120,51 @@ class Locations(Resource):
             for cities in data[provinces].keys():
                 locations.append(cities + ", " + provinces)
         return locations
-        
+
+class Add(Resource):
+    def post(self):
+        data = request.get_json()
+        try:
+            fp = open("users.json", encoding="utf8")
+            users = json.load(fp)
+
+            if data["email"] in users.keys():
+                return "666"
+            
+            temp = {}
+            temp["location"] = data["location"]
+            temp["rooms"] = data["rooms"]
+            if data["max_price"] == "":
+                temp["max_price"] = "99999999"
+            else:
+                temp["max_price"] = data["max_price"]
+            temp["type"] = [data["type"]]
+
+            users[data["email"]] = {}
+            users[data["email"]]["parameters"] = temp
+
+            params = data
+            if params["max_price"] == "":
+                params["max_price"] = "None"
+            
+            if params["rooms"].split()[0] == "rooms":
+                params["rooms"] = "None"
+
+            if hello(params) == -1:
+                return "777"
+            
+            with open("users.json", "w", encoding="utf8") as f:
+                json.dump(users, f, ensure_ascii=False)
+            
+
+
+            return "1"
+             
+        except:
+            return "777"
 
 api.add_resource(Locations, '/location/<type>')
+api.add_resource(Add, '/add')
 
 if __name__ == '__main__':
      app.run(host="0.0.0.0", port=5000)
