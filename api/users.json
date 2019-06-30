@@ -1,1 +1,20 @@
-{"sanzerinf@gmail.com": {"parameters": {"location": "Karlsruhe, Baden-Württemberg", "rooms": "2", "max_price": "900", "type": ["apartment_rent", "apartment_buy"]}}, "sanzermartin12@gmail.com": {"parameters": {"location": "Karlsruhe, Baden-Württemberg", "rooms": "1", "max_price": "900", "type": ["room_rent"]}}, "akkimysite@gmail.com": {"parameters": {"location": "Alle, Hessen", "rooms": " rooms", "max_price": "99999999", "type": ["apartment_rent"]}}}
+{
+  "sanzerinf@gmail.com": {
+    "parameters": {
+      "location": "Karlsruhe, Baden-Württemberg",
+      "rooms": "2",
+      "max_price": "900",
+      "type": ["apartment_rent"]
+    },
+    "subscription": "S"
+  },
+  "akkimysite@gmail.com": {
+    "parameters": {
+      "location": "Alle, Hessen",
+      "rooms": "2",
+      "max_price": "900",
+      "type": ["apartment_rent"]
+    },
+    "subscription": "U"
+  }
+}

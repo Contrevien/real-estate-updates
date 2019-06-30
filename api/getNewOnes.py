@@ -13,7 +13,7 @@ from email.mime.multipart import MIMEMultipart
 
 
 #Selenium driver configs
-ch = os.getcwd() + '/tools/chromedriver.exe'
+ch = os.getcwd() + '/tools/chromedriver'
 options = Options()
 prefs = {"profile.managed_default_content_settings.images": 2}
 options.add_experimental_option("prefs", prefs)
@@ -279,14 +279,40 @@ for t in types.keys():
 
 					# if the results are more than one then add it to the result
 					if len(result) > 0:
-						if len(new_ones[t]) != 0 and province in new_ones[t].keys() and city in new_ones[t][province].keys():
-							new_ones[t][province][city][website] = new_one
+						if len(new_ones[t]) != 0 and province in new_ones[t].keys():
+							if city in new_ones[t][province].keys():
+								new_ones[t][province][city][website] = new_one
+							else:
+								new_ones[t][province][city] = {}
+								new_ones[t][province][city][website] = new_one
 						else:
 							new_ones[t][province] = {}
 							new_ones[t][province][city] = {}
 							new_ones[t][province][city][website] = new_one
 						scraped[t][province][city][website] = result
+		else:
+			if province in scraped[t].keys():
+				links = locations[t][province][city]
+				for website in links.keys():
+					scraping_link = links[website]
+					[result, new_one] = compare_scrape(website, scraping_link, {}, t)
+					if len(result) > 0:
+						scraped[t][province][city] = {}
+						scraped[t][province][city][website] = result
+			else:
+				links = locations[t][province][city]
+				for website in links.keys():
+					scraping_link = links[website]
+					[result, new_one] = compare_scrape(website, scraping_link, {}, t)
+					if len(result) > 0:
+						scraped[t][province] = {}
+						scraped[t][province][city] = {}
+						scraped[t][province][city][website] = result	
 
+
+
+
+driver.quit()
 print("Dumping the results")
 with io.open('scraped.json', 'w', encoding="utf8") as f:
 	json.dump(scraped, f, ensure_ascii=False)
@@ -298,19 +324,20 @@ print("Sending mails to users")
 to_send = {}
 
 for user in users.keys():
-	types = users[user]["parameters"]["type"]
-	loc = users[user]["parameters"]["location"]
-	[city, province] = loc.split(", ")
-	price = users[user]["parameters"]["max_price"].split()[0]
-	rooms = users[user]["parameters"]["rooms"].split()[0]
-	to_send[user] = {}
-	for t in types:
-		if len(new_ones[t]) != 0 and province in new_ones[t].keys() and city in new_ones[t][province].keys():
-			for website in new_ones[t][province][city].keys():
-				for link in new_ones[t][province][city][website].keys():
-					focus = new_ones[t][province][city][website][link]
-					if rooms in focus["rooms"] and focus["price"].split()[0] <= price:
-						to_send[user][link] = focus
+	if users[user]["subscription"] == "S":
+		types = users[user]["parameters"]["type"]
+		loc = users[user]["parameters"]["location"]
+		[city, province] = loc.split(", ")
+		price = users[user]["parameters"]["max_price"].split()[0]
+		rooms = users[user]["parameters"]["rooms"].split()[0]
+		to_send[user] = {}
+		for t in types:
+			if len(new_ones[t]) != 0 and province in new_ones[t].keys() and city in new_ones[t][province].keys():
+				for website in new_ones[t][province][city].keys():
+					for link in new_ones[t][province][city][website].keys():
+						focus = new_ones[t][province][city][website][link]
+						if rooms in focus["rooms"] and focus["price"].split()[0] <= price:
+							to_send[user][link] = focus
 
 
 
@@ -318,6 +345,8 @@ smtp_server = "smtp.gmail.com"
 port = 587  # For starttls
 sender_email = "therealestatebotgermany@gmail.com"
 password = "dontplease"
+em = open("env.json")
+url = json.load(em)["url"]
 
 # Create a secure SSL context
 context = ssl.create_default_context()
@@ -432,7 +461,7 @@ try:
 				<h1 class="hai">neue postings</h1>
 				<div class="goodslist">
 				""" + filling + """
-				<a href=".">Unsubscribe</a>
+				<a href='""" + url + """unsubscribe/""" + user + """'>Unsubscribe</a>
 				</div>
 			</body>
 			</html>

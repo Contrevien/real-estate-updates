@@ -8,12 +8,16 @@ from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 api = Api(app)
+cur_path = os.path.dirname(__file__)
+
 
 def hello(params):
     smtp_server = "smtp.gmail.com"
     port = 587  # For starttls
     sender_email = "therealestatebotgermany@gmail.com"
     password = "dontplease"
+    fp = open("env.json")
+    url = json.load(fp)["url"]
 
     # Create a secure SSL context
     context = ssl.create_default_context()
@@ -85,7 +89,7 @@ def hello(params):
                         </ul>
                         <p>You will receive a mail if a new property shows up for your preferences</p>
                     </div>
-                    <a href=".">Unsubscribe</a>
+                    <a href='""" + url + """unsubscribe/""" + params["email"] +  """'>Unsubscribe</a>
                 </div>
             </body>
             </html>
@@ -108,12 +112,15 @@ def hello(params):
 class Locations(Resource):
     def get(self, type):
         fp = None
-        if type == "apartment_rent":
-            fp = open('apartment_rent_locations.json', encoding="utf8")
-        elif type == "apartment_buy":
-            fp = open('apartment_buy_locations.json', encoding="utf8")
-        elif type == "room_rent":
-            fp = open('room_rent_locations.json', encoding="utf8")
+        try:
+            if type == "apartment_rent":
+                fp = open('apartment_rent_locations.json', encoding="utf8")
+            elif type == "apartment_buy":
+                fp = open('apartment_buy_locations.json', encoding="utf8")
+            elif type == "room_rent":
+                fp = open('room_rent_locations.json', encoding="utf8")
+        except:
+            return "Not found"
         data = json.load(fp)
         locations = []
         for provinces in data.keys():
@@ -128,7 +135,7 @@ class Add(Resource):
             fp = open("users.json", encoding="utf8")
             users = json.load(fp)
 
-            if data["email"] in users.keys():
+            if data["email"] in users.keys() and data["email"]["subscription"] == "U":
                 return "666"
             
             temp = {}
@@ -142,6 +149,7 @@ class Add(Resource):
 
             users[data["email"]] = {}
             users[data["email"]]["parameters"] = temp
+            users[data["email"]]["subscription"] = "S"
 
             params = data
             if params["max_price"] == "":
@@ -155,16 +163,34 @@ class Add(Resource):
             
             with open("users.json", "w", encoding="utf8") as f:
                 json.dump(users, f, ensure_ascii=False)
-            
-
 
             return "1"
              
         except:
             return "777"
 
+class Remove(Resource):
+    def post(self):
+        try:     
+            data = request.get_json()           
+            file_path = os.path.relpath("users.json")
+            fp = open(file_path, encoding="utf8")
+            users = json.load(fp)
+            if data["key"] != "dontplease" or users[data["email"]]["subscription"] == "U":
+                return "666"
+            
+            users[data["email"]]["subscription"] = "U"
+
+            with open(file_path, "w", encoding="utf8") as f:
+                json.dump(users, f, ensure_ascii=False)
+            return "1"
+        except:
+            return "777"
+
+
 api.add_resource(Locations, '/location/<type>')
 api.add_resource(Add, '/add')
+api.add_resource(Remove, '/unsubscribe')
 
 if __name__ == '__main__':
      app.run(host="0.0.0.0", port=5000)
