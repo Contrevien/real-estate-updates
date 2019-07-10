@@ -14,8 +14,7 @@ class Unsubscribed extends Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email: this.state.email,
-                key: "dontplease"
+                email: this.state.email
             })
         })
             .then(res => res.json())

@@ -5,11 +5,15 @@ import json
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import hmac
+import hashlib
+import binascii
 
 app = Flask(__name__)
 api = Api(app)
 cur_path = os.path.dirname(__file__)
-
+key = "e179017a62b049968a38e91aa9f1"
+key = binascii.unhexlify(key)
 
 def hello(params):
     smtp_server = "smtp.gmail.com"
@@ -29,6 +33,9 @@ def hello(params):
         server.starttls(context=context) # Secure the connection
         server.ehlo() # Can be omitted
         server.login(sender_email, password)
+
+        email = params["email"].encode()
+        encrypted = hmac.new(key, email, hashlib.sha256).hexdigest().lower()
             
         html = """
             <html>
@@ -89,7 +96,7 @@ def hello(params):
                         </ul>
                         <p>You will receive a mail if a new property shows up for your preferences</p>
                     </div>
-                    <a href='""" + url + """unsubscribe/""" + params["email"] +  """'>Unsubscribe</a>
+                    <a href='""" + url + """unsubscribe/""" + encrypted +  """'>Unsubscribe</a>
                 </div>
             </body>
             </html>
@@ -176,10 +183,19 @@ class Remove(Resource):
             file_path = os.path.relpath("users.json")
             fp = open(file_path, encoding="utf8")
             users = json.load(fp)
-            if data["key"] != "dontplease" or users[data["email"]]["subscription"] == "U":
+
+            found = -1
+            for user in users.keys():
+                m = user.encode()
+                c = hmac.new(key, m, hashlib.sha256).hexdigest().lower()
+                if c == data["email"]:
+                    found = user
+                    break
+
+            if found == -1 or users[found]["subscription"] == "U":
                 return "666"
             
-            users[data["email"]]["subscription"] = "U"
+            users[found]["subscription"] = "U"
 
             with open(file_path, "w", encoding="utf8") as f:
                 json.dump(users, f, ensure_ascii=False)

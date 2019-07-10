@@ -10,6 +10,12 @@ import io
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import hmac
+import hashlib
+import binascii
+
+key = "e179017a62b049968a38e91aa9f1"
+key = binascii.unhexlify(key)
 
 
 #Selenium driver configs
@@ -394,6 +400,9 @@ try:
 			)
 			filling += el
 		
+		m = user.encode()
+		encrypted = hmac.new(key, m, hashlib.sha256).hexdigest().lower()
+		
 		html = """
 			<html>
 			<head>
@@ -461,7 +470,7 @@ try:
 				<h1 class="hai">neue postings</h1>
 				<div class="goodslist">
 				""" + filling + """
-				<a href='""" + url + """unsubscribe/""" + user + """'>Unsubscribe</a>
+				<a href='""" + url + """unsubscribe/""" + encrypted + """'>Unsubscribe</a>
 				</div>
 			</body>
 			</html>
